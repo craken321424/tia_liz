@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Día de la Madre</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif; /* Fuente más elegante */
+            background-color: #f9f4f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .sobre-contenedor {
+            position: relative;
+            width: 90%;
+            max-width: 600px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease-in-out;
+        }
+        .sobre {
+            background-color: #fff; /* Color blanco para el sobre */
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            border-radius: 10px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #ccc; /* Añadimos un borde */
+        }
+        .solapa-superior {
+            background-color: #fff;
+            width: 100%;
+            height: 50px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            position: relative;
+            transform-origin: top center;
+            transition: transform 0.5s ease-in-out;
+            transform: rotateX(0deg);
+            border-bottom: 1px solid #ccc; /* Añadimos un borde */
+        }
+        .solapa-inferior {
+            background-color: #fff;
+            width: 100%;
+            height: 50px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+             position: relative;
+            transform-origin: bottom center;
+            transition: transform 0.5s ease-in-out;
+            transform: rotateX(0deg);
+            border-top: 1px solid #ccc; /* Añadimos un borde */
+        }
+
+        .sobre h2 {
+            color: #333; /* Cambiamos el color del texto a más oscuro */
+            margin: 10px 0;
+            font-size: 1.2em;
+            text-shadow: none; /* Eliminamos la sombra del texto */
+        }
+        .carta {
+             background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .carta-visible {
+            opacity: 1;
+        }
+        .sobre-abierto .solapa-superior {
+            transform: rotateX(-180deg);
+        }
+        .sobre-abierto .solapa-inferior {
+            transform: rotateX(-180deg);
+        }
+
+        h1 {
+            color: #e91e63;
+             font-family: 'Georgia', serif; /* Fuente más elegante para el título */
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Sombra para el título */
+        }
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+             font-family: 'Georgia', serif; /* Fuente más elegante para el texto */
+        }
+        .firma {
+            text-align: right;
+            font-style: italic;
+            color: #777;
+            margin-bottom: 20px;
+             font-family: 'Georgia', serif; /* Fuente más elegante para la firma */
+        }
+        button {
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            display: block;
+            margin: 20px auto 0;
+            transition: background-color 0.3s ease; /* Transición suave para el hover */
+        }
+
+        button:hover {
+            background-color: #d81b60; /* Un tono más oscuro al pasar el ratón */
+        }
+        #mensaje-sorpresa {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #007bff;
+            display: none;
+            animation: aparecerMensaje 1s ease-in-out; /* Animación para el mensaje */
+        }
+
+        @keyframes aparecerMensaje {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="sobre-contenedor" onclick="abrirSobre()">
+        <div class="sobre">
+            <div class="solapa-superior"></div>
+            <h2>¡Haz clic para abrir!</h2>
+            <div class="solapa-inferior"></div>
+        </div>
+        <div class="carta">
+            <h1>¡Feliz Día,tia Liz!</h1>
+            <p>Querida tia,</p>
+            <p>Hoy, en este día tan especial, quiero tomarme un momento para decirte unas palabras bonitas.</p>
+            <p>Querida tía, tu fuerza, tu ejemplo y tu gran corazón son una inspiración para todos nosotros. Gracias por todo lo que haces y por ser una mujer tan maravillosa. ¡Te deseo un muy feliz Día de la Madre!.</p>
+            <p>¡Feliz Día de la Madre a mi tía favorita (no le digas a las otras)! Gracias por ser tan divertida y por siempre sacarnos una sonrisa. ¡Que tengas un día genial!</p>
+            <p class="firma">Tu hijo/a que te quiere mucho.</p>
+            <button onclick="mostrarMensaje()">¡Haz clic para una sorpresa!</button>
+            <p id="mensaje-sorpresa"></p>
+        </div>
+    </div>
+
+    <script>
+        const sobreContenedor = document.querySelector('.sobre-contenedor');
+        const sobre = document.querySelector('.sobre');
+        const carta = document.querySelector('.carta');
+        let sobreAbierto = false;
+
+        function abrirSobre() {
+            sobreAbierto = !sobreAbierto;
+            if (sobreAbierto) {
+                sobreContenedor.classList.add('sobre-abierto');
+                carta.classList.add('carta-visible');
+            } else {
+                sobreContenedor.classList.remove('sobre-abierto');
+                carta.classList.remove('carta-visible');
+            }
+        }
+
+        function mostrarMensaje() {
+            const mensajeSorpresa = document.getElementById('mensaje-sorpresa');
+            mensajeSorpresa.textContent = "¡Eres la mejor mamá del mundo entero!";
+            mensajeSorpresa.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
